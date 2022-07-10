@@ -6,6 +6,22 @@ import static org.junit.Assert.*;
 
 public class ConwayGameOfLifeTest {
 
+
+    @Test
+    public void testIsAlive() {
+        int[][] start = {
+                {0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0},
+                {0, 0, 1, 0, 0},
+                {0, 0, 1, 0, 0},
+                {0, 0, 0, 0, 0}};
+        ConwayGameOfLife sim = new ConwayGameOfLife(5, start);
+        Integer expected = 3;
+
+        Integer actual = sim.isAlive(2, 1, start);
+
+        assertEquals(expected, actual);
+    }
     @Test
     public void runTest1() {
         int[][] start = {
