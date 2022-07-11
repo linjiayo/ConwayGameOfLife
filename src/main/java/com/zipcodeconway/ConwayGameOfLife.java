@@ -21,8 +21,8 @@ public class ConwayGameOfLife {
     }
 
     public static void main(String[] args) {
-        ConwayGameOfLife sim = new ConwayGameOfLife(50);
-        int[][] endingWorld = sim.simulate(50);
+        ConwayGameOfLife sim = new ConwayGameOfLife(75);
+        int[][] endingWorld = sim.simulate(75);
     }
 
     // Contains the logic for the starting scenario.
@@ -88,15 +88,13 @@ public class ConwayGameOfLife {
         // iterate over each adjacent row and column, ensuring bounds
         for (int i = Math.max(row - 1 , 0); i < Math.min(row + 2, rowBound); i++) {
             for (int j = Math.max(col - 1, 0); j < Math.min(col + 2, columnBound); j++) {
-                // bitwise AND to return 0 or 1 if cell alive, increment aliveCount with value.
-                aliveCount += world[i][j] & 1;
+                aliveCount += world[i][j];
             }
         }
-        aliveCount -= world[row][col] & 1;
-        if (world[row][col] == 0 && aliveCount == 3) {
-            return 1;
-        }
-        return (world[row][col] == 1 && !(aliveCount > 3 || aliveCount < 2))
+        aliveCount -= world[row][col];
+
+        return ((world[row][col] == 1 && !(aliveCount > 3 || aliveCount < 2))
+                    || (world[row][col] == 0 && aliveCount == 3))
                 ? 1
                 : 0;
     }

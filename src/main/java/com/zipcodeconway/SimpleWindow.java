@@ -37,6 +37,7 @@ public class SimpleWindow {
         int BOX_DIM = 10;
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[0].length; j++) {
+                g.setColor(Color.WHITE);
                 g.drawRect(i * BOX_DIM, j * BOX_DIM, 10, 10);
                 if (array[i][j] == 0) {
                     g.setColor(Color.WHITE);
