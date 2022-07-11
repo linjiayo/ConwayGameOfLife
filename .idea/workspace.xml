@@ -5,10 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e282cee1-bfe9-42a3-9794-9633eb4654d1" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_13_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Game-Of-Life-Java.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Game-Of-Life-Java.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_13.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zipcodeconway/ConwayGameOfLife.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zipcodeconway/ConwayGameOfLife.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/zipcodeconway/ConwayGameOfLifeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/zipcodeconway/ConwayGameOfLifeTest.java" afterDir="false" />
@@ -181,7 +177,7 @@
       <recent name="$PROJECT_DIR$/src/main/java" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ConwayGameOfLifeTest.testIsAlive">
+  <component name="RunManager" selected="JUnit.ConwayGameOfLifeTest.runTest1">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -258,7 +254,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ConwayGameOfLifeTest.testIsAlive" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ConwayGameOfLifeTest.testIsAliveCellStaysAlive2Or3Neighbors" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Game-Of-Life-Java" />
       <extension name="coverage">
         <pattern>
@@ -268,7 +264,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.zipcodeconway" />
       <option name="MAIN_CLASS_NAME" value="com.zipcodeconway.ConwayGameOfLifeTest" />
-      <option name="METHOD_NAME" value="testIsAlive" />
+      <option name="METHOD_NAME" value="testIsAliveCellStaysAlive2Or3Neighbors" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <method v="2">
@@ -326,18 +322,18 @@
     <list>
       <item itemvalue="Application.ConwayGameOfLife" />
       <item itemvalue="JUnit.ConwayGameOfLifeTest.runTest1" />
-      <item itemvalue="JUnit.ConwayGameOfLifeTest.testIsAlive" />
+      <item itemvalue="JUnit.ConwayGameOfLifeTest.testIsAliveCellStaysAlive2Or3Neighbors" />
       <item itemvalue="JUnit.ConwayGameOfLifeTest.runTest2" />
       <item itemvalue="JUnit.ConwayGameOfLifeTest" />
       <item itemvalue="Maven.ConwayLife" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ConwayGameOfLifeTest.testIsAlive" />
         <item itemvalue="JUnit.ConwayGameOfLifeTest.runTest1" />
-        <item itemvalue="JUnit.ConwayGameOfLifeTest" />
-        <item itemvalue="Application.ConwayGameOfLife" />
         <item itemvalue="JUnit.ConwayGameOfLifeTest.runTest2" />
+        <item itemvalue="Application.ConwayGameOfLife" />
+        <item itemvalue="JUnit.ConwayGameOfLifeTest" />
+        <item itemvalue="JUnit.ConwayGameOfLifeTest.testIsAliveCellStaysAlive2Or3Neighbors" />
       </list>
     </recent_temporary>
   </component>
@@ -434,6 +430,21 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/zipcodeconway/ConwayGameOfLife.java</url>
+          <line>82</line>
+          <properties class="com.zipcodeconway.ConwayGameOfLife" method="isAlive">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/pom.xml">

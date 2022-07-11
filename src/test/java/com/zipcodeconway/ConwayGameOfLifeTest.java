@@ -1,26 +1,59 @@
 package com.zipcodeconway;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class ConwayGameOfLifeTest {
+    int[][] startMatrix;
 
-
-    @Test
-    public void testIsAlive() {
-        int[][] start = {
+    @Before
+    public void init() {
+        startMatrix = new int[][] {
                 {0, 0, 0, 0, 0},
                 {0, 0, 1, 0, 0},
                 {0, 0, 1, 0, 0},
                 {0, 0, 1, 0, 0},
                 {0, 0, 0, 0, 0}};
-        ConwayGameOfLife sim = new ConwayGameOfLife(5, start);
-        Integer expected = 3;
+    }
+    @Test
+    public void testIsAliveDeadCellBecomesAliveWhen3LiveNeighbors() {
+        ConwayGameOfLife sim = new ConwayGameOfLife(5, startMatrix);
+        Integer expected = 1;
 
-        Integer actual = sim.isAlive(2, 1, start);
+        Integer actual = sim.isAlive(2, 1, startMatrix);
+        Integer actual1 = sim.isAlive(2, 3, startMatrix);
 
         assertEquals(expected, actual);
+        assertEquals(expected, actual1);
+    }
+
+    @Test
+    public void testIsAliveDeadCellStayDeadWhen2LiveNeighbors() {
+        ConwayGameOfLife sim = new ConwayGameOfLife(5, startMatrix);
+        Integer expected = 0;
+
+        Integer actual = sim.isAlive(1, 3, startMatrix);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testIsAliveCellStaysAlive2Or3Neighbors() {
+        int[][] matrix = new int[][] {
+                {0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0},
+                {0, 1, 1, 1, 0},
+                {0, 0, 1, 0, 0},
+                {0, 0, 0, 0, 0}};
+        ConwayGameOfLife sim = new ConwayGameOfLife(5, matrix);
+        Integer expected = 1;
+
+        Integer actual = sim.isAlive(3, 2, matrix);
+
+        assertEquals(expected, actual);
+
     }
     @Test
     public void runTest1() {
@@ -37,7 +70,9 @@ public class ConwayGameOfLifeTest {
                 {0, 0, 1, 0, 0},
                 {0, 0, 0, 0, 0}};
         ConwayGameOfLife sim = new ConwayGameOfLife(5, start);
+        //System.out.println(sim);
         int[][] results = sim.simulate(9);
+        //System.out.println(sim);
         assertTrue(java.util.Arrays.deepEquals(results, expected));
     }
 

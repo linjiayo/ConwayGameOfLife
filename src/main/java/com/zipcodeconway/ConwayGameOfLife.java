@@ -1,13 +1,23 @@
 package com.zipcodeconway;
 
+import java.util.Arrays;
+import java.util.Random;
+
 public class ConwayGameOfLife {
-    int[][] board;
+    private int dimension;
+    private int[][] matrix;
+    private SimpleWindow displayWindow;
+
     public ConwayGameOfLife(Integer dimension) {
-        board = new int[dimension][dimension];
+        this.dimension = dimension;
+        displayWindow = new SimpleWindow(dimension);
+        matrix = createRandomStart(dimension);
      }
 
-    public ConwayGameOfLife(Integer dimension, int[][] startmatrix) {
-        board = startmatrix;
+    public ConwayGameOfLife(Integer dimension, int[][] startMatrix) {
+        matrix = startMatrix;
+        this.dimension = dimension;
+        displayWindow = new SimpleWindow(dimension);
     }
 
     public static void main(String[] args) {
@@ -19,17 +29,47 @@ public class ConwayGameOfLife {
     // Which cells are alive or dead in generation 0.
     // allocates and returns the starting matrix of size 'dimension'
     private int[][] createRandomStart(Integer dimension) {
-        return new int[1][1];
+        Random rand = new Random();
+        int[][] board = new int[dimension][dimension];
+
+        for (int row = 0; row < dimension; row++) {
+            for (int col = 0; col < dimension; col++) {
+                board[row][col] = rand.nextInt(2);
+            }
+        }
+        return board;
     }
 
     public int[][] simulate(Integer maxGenerations) {
-        return new int[1][1];
+        if (this.matrix == null) {
+            this.matrix = createRandomStart(this.dimension);
+        }
+        int currentGen = 0;
+        int[][] newGen = new int[dimension][dimension];
+
+        while (currentGen <= maxGenerations) {
+            this.displayWindow.display(this.matrix, currentGen);
+            for (int row = 0; row < dimension; row++) {
+                for (int col = 0; col < dimension; col++) {
+                    newGen[row][col] = isAlive(row, col, this.matrix);
+                }
+            }
+            copyAndZeroOut(newGen, this.matrix);
+            currentGen++;
+            this.displayWindow.sleep(125);
+        }
+        return this.matrix;
     }
 
     // copy the values of 'next' matrix to 'current' matrix,
     // and then zero out the contents of 'next' matrix
     public void copyAndZeroOut(int [][] next, int[][] current) {
-        //for (int i = 0; i < )
+        for (int row = 0; row < Math.min(next.length, current.length); row++) {
+            for (int col = 0; col < Math.min(next.length, current.length); col++) {
+                current[row][col] = next[row][col];
+                next[row][col] = 0;
+            }
+        }
     }
 
     // Calculate if an individual cell should be alive in the next generation.
@@ -47,11 +87,29 @@ public class ConwayGameOfLife {
 
         // iterate over each adjacent row and column, ensuring bounds
         for (int i = Math.max(row - 1 , 0); i < Math.min(row + 2, rowBound); i++) {
-            for (int j = (Math.max(col - 1, 0)); j < Math.min(col + 2, columnBound); j++) {
-                // bitwise AND to return 0 or 1 if cell alive
+            for (int j = Math.max(col - 1, 0); j < Math.min(col + 2, columnBound); j++) {
+                // bitwise AND to return 0 or 1 if cell alive, increment aliveCount with value.
                 aliveCount += world[i][j] & 1;
             }
         }
-        return aliveCount;
+        aliveCount -= world[row][col] & 1;
+        if (world[row][col] == 0 && aliveCount == 3) {
+            return 1;
+        }
+        return (world[row][col] == 1 && !(aliveCount > 3 || aliveCount < 2))
+                ? 1
+                : 0;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder(dimension * (dimension + dimension));
+        for (int row = 0; row < dimension; row++) {
+            for (int col = 0; col < dimension; col++) {
+                res.append(matrix[row][col] + " ");
+            }
+            res.append("\n");
+        }
+        return res.toString();
     }
 }
