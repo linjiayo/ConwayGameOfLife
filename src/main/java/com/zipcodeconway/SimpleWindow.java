@@ -31,7 +31,7 @@ public class SimpleWindow {
         }
     }
 
-    public void display(int[][] array, Integer n) {
+    public void display(short[][] array, Integer n) {
         frame.setTitle(String.format("Generation: %6d", n));
         Graphics g = panel.getGraphics();
         int BOX_DIM = 10;

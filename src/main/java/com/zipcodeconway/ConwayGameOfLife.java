@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class ConwayGameOfLife {
     private int dimension;
-    private int[][] matrix;
+    private short[][] matrix;
     private SimpleWindow displayWindow;
 
     public ConwayGameOfLife(Integer dimension) {
@@ -31,13 +31,13 @@ public class ConwayGameOfLife {
     // Contains the logic for the starting scenario.
     // Which cells are alive or dead in generation 0.
     // allocates and returns the starting matrix of size 'dimension'
-    private int[][] createRandomStart(Integer dimension) {
+    private short[][] createRandomStart(Integer dimension) {
         Random rand = new Random();
-        int[][] board = new int[dimension + 2][dimension + 2];
+        short[][] board = new short[dimension + 2][dimension + 2];
 
         for (int row = 1; row < dimension - 1; row++) {
             for (int col = 1; col < dimension - 1; col++) {
-                board[row][col] = rand.nextInt(2);
+                board[row][col] = (short) rand.nextInt(2);
             }
         }
         return board;
@@ -48,7 +48,7 @@ public class ConwayGameOfLife {
             this.matrix = createRandomStart(this.dimension);
         }
         int currentGen = 0;
-        int[][] newGen = new int[dimension + 2][dimension + 2];
+        short[][] newGen = new short[dimension + 2][dimension + 2];
 
         while (currentGen <= maxGenerations) {
             this.displayWindow.display(this.matrix, currentGen);
@@ -62,21 +62,20 @@ public class ConwayGameOfLife {
             currentGen++;
             //this.displayWindow.sleep(125);
         }
-        matrix = unPadArray(this.matrix);
-        return this.matrix;
+        return unPadArray(this.matrix);
     }
 
-    public int[][] padArray(int[][] current) {
-        int[][] newArr = new int[current.length + 2][current.length + 2];
+    public short[][] padArray(int[][] current) {
+        short[][] newArr = new short[current.length + 2][current.length + 2];
         for (int row = 0; row < current.length; row++) {
             for (int col = 0; col < current.length; col++) {
-                newArr[row + 1][col + 1] = current[row][col];
+                newArr[row + 1][col + 1] = (short) current[row][col];
             }
         }
         return newArr;
     }
 
-    public int[][] unPadArray(int[][] current) {
+    public int[][] unPadArray(short[][] current) {
         int[][] newArr = new int[dimension][dimension];
         for (int row = 0; row < dimension; row++) {
             for (int col = 0; col < dimension; col++) {
@@ -88,7 +87,7 @@ public class ConwayGameOfLife {
 
     // copy the values of 'next' matrix to 'current' matrix,
     // and then zero out the contents of 'next' matrix
-    public void copyAndZeroOut(int [][] next, int[][] current) {
+    public void copyAndZeroOut(short [][] next, short[][] current) {
         for (int row = 1; row < next.length - 1; row++) {
             for (int col = 1; col < next.length - 1; col++) {
                 current[row][col] = next[row][col];
@@ -105,7 +104,18 @@ public class ConwayGameOfLife {
 		Any live cell with two or three live neighbours lives, unchanged, to the next generation.
 		Any dead cell with exactly three live neighbours cells will come to life.
 	*/
-    protected int isAlive(int row, int col, int[][] world) {
+    protected int isAliveForTesting(int row, int col, int[][] world) {
+        short[][] newShortArr = new short[world.length][world.length];
+        for (int i = 0; i < world.length; i++) {
+            for (int j = 0; j < world.length; j++) {
+                newShortArr[i][j] = (short) world[i][j];
+            }
+        }
+        return isAlive(row, col, newShortArr);
+    }
+
+
+    protected short isAlive(int row, int col, short[][] world) {
         int count = 0;
         count += world[row-1][col-1];
         count += world[row-1][col];
@@ -116,10 +126,10 @@ public class ConwayGameOfLife {
         count += world[row+1][col];
         count += world[row+1][col+1];
 
-        return ((world[row][col] == 1 && !(count > 3 || count < 2))
-                || (world[row][col] == 0 && count == 3))
-                    ? 1
-                    : 0;
+        return (short) (((world[row][col] == 1 && !(count > 3 || count < 2))
+                        || (world[row][col] == 0 && count == 3))
+                            ? 1
+                            : 0);
     }
 
     @Override

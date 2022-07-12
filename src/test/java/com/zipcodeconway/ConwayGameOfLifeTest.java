@@ -31,9 +31,9 @@ public class ConwayGameOfLifeTest {
         ConwayGameOfLife sim = new ConwayGameOfLife(5, startMatrix);
         Integer expected = 1;
 
-        Integer actual = sim.isAlive(2, 1, startMatrix);
-        Integer actual1 = sim.isAlive(2, 3, startMatrix);
-        Integer actual2 = sim.isAlive(3, 4, matrix);
+        Integer actual = sim.isAliveForTesting(2, 1, startMatrix);
+        Integer actual1 = sim.isAliveForTesting(2, 3,  startMatrix);
+        Integer actual2 = sim.isAliveForTesting(3, 4, matrix);
 
         assertEquals(expected, actual);
         assertEquals(expected, actual1);
@@ -45,7 +45,7 @@ public class ConwayGameOfLifeTest {
         ConwayGameOfLife sim = new ConwayGameOfLife(5, startMatrix);
         Integer expected = 0;
 
-        Integer actual = sim.isAlive(1, 3, startMatrix);
+        Integer actual = sim.isAliveForTesting(1, 3, startMatrix);
 
         assertEquals(expected, actual);
     }
@@ -61,7 +61,7 @@ public class ConwayGameOfLifeTest {
         ConwayGameOfLife sim = new ConwayGameOfLife(5, matrix);
         Integer expected = 1;
 
-        Integer actual = sim.isAlive(3, 2, matrix);
+        Integer actual = sim.isAliveForTesting(3, 2, matrix);
 
         assertEquals(expected, actual);
 
