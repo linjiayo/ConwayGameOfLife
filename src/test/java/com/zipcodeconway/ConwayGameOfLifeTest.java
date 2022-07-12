@@ -19,14 +19,25 @@ public class ConwayGameOfLifeTest {
     }
     @Test
     public void testIsAliveDeadCellBecomesAliveWhen3LiveNeighbors() {
+        int[][] matrix = new int[][] {
+                {0, 0 ,0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0}};
+
         ConwayGameOfLife sim = new ConwayGameOfLife(5, startMatrix);
         Integer expected = 1;
 
         Integer actual = sim.isAlive(2, 1, startMatrix);
         Integer actual1 = sim.isAlive(2, 3, startMatrix);
+        Integer actual2 = sim.isAlive(3, 4, matrix);
 
         assertEquals(expected, actual);
         assertEquals(expected, actual1);
+        assertEquals(expected, actual2);
     }
 
     @Test
