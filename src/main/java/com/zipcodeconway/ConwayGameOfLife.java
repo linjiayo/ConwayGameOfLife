@@ -15,7 +15,7 @@ public class ConwayGameOfLife {
      }
 
     public ConwayGameOfLife(Integer dimension, int[][] startMatrix) {
-        matrix = padArray(startMatrix);
+        matrix = startMatrix;
         this.dimension = dimension;
         displayWindow = new SimpleWindow(dimension);
     }
@@ -33,10 +33,10 @@ public class ConwayGameOfLife {
     // allocates and returns the starting matrix of size 'dimension'
     private int[][] createRandomStart(Integer dimension) {
         Random rand = new Random();
-        int[][] board = new int[dimension + 2][dimension + 2];
+        int[][] board = new int[dimension][dimension];
 
-        for (int row = 1; row < dimension - 1; row++) {
-            for (int col = 1; col < dimension - 1; col++) {
+        for (int row = 0; row < dimension; row++) {
+            for (int col = 0; col < dimension; col++) {
                 board[row][col] = rand.nextInt(2);
             }
         }
@@ -48,12 +48,12 @@ public class ConwayGameOfLife {
             this.matrix = createRandomStart(this.dimension);
         }
         int currentGen = 0;
-        int[][] newGen = new int[dimension + 2][dimension + 2];
+        int[][] newGen = new int[dimension][dimension];
 
         while (currentGen <= maxGenerations) {
             this.displayWindow.display(this.matrix, currentGen);
-            for (int row = 1; row < dimension; row++) {
-                for (int col = 1; col < dimension; col++) {
+            for (int row = 0; row < dimension; row++) {
+                for (int col = 0; col < dimension; col++) {
                     newGen[row][col] = isAlive(row, col, this.matrix);
                 }
             }
@@ -62,7 +62,7 @@ public class ConwayGameOfLife {
             currentGen++;
             //this.displayWindow.sleep(125);
         }
-        matrix = unPadArray(this.matrix);
+        //matrix = unPadArray(this.matrix);
         return this.matrix;
     }
 
@@ -89,8 +89,8 @@ public class ConwayGameOfLife {
     // copy the values of 'next' matrix to 'current' matrix,
     // and then zero out the contents of 'next' matrix
     public void copyAndZeroOut(int [][] next, int[][] current) {
-        for (int row = 1; row < next.length - 1; row++) {
-            for (int col = 1; col < next.length - 1; col++) {
+        for (int row = 0; row < next.length; row++) {
+            for (int col = 0; col < next.length; col++) {
                 current[row][col] = next[row][col];
                 next[row][col] = 0;
             }
@@ -107,14 +107,15 @@ public class ConwayGameOfLife {
 	*/
     protected int isAlive(int row, int col, int[][] world) {
         int count = 0;
-        count += world[row-1][col-1];
-        count += world[row-1][col];
-        count += world[row-1][col+1];
-        count += world[row][col-1];
-        count += world[row][col+1];
-        count += world[row+1][col-1];
-        count += world[row+1][col];
-        count += world[row+1][col+1];
+        int len = world.length;
+        count += world[(row-1 + len) % len][(col- 1 + len) % len];
+        count += world[(row-1 + len) % len][col];
+        count += world[(row-1 + len) % len][(col+1 + len) % len];
+        count += world[row][(col-1 + len) % len];
+        count += world[row][(col+1 + len) % len];
+        count += world[(row + 1 + len) % len][(col-1 + len) % len];
+        count += world[(row+1 + len) % len][col];
+        count += world[(row+1 + len) % len][(col+1 + len) % len];
 
         return ((world[row][col] == 1 && !(count > 3 || count < 2))
                 || (world[row][col] == 0 && count == 3))
